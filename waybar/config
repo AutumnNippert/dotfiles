@@ -1,0 +1,100 @@
+{
+	"layer": "top",
+	"modules-left": ["custom/launcher", "memory","custom/media","tray"],
+	"modules-center": ["hyprland/workspaces"],
+	"modules-right": ["custom/weather", "network", "bluetooth", "backlight","pulseaudio","battery", "clock"],
+	
+	"pulseaudio": {
+		"tooltip": false,
+		"scroll-step": 1,
+		"format": "{icon} {volume}%",
+		"format-muted": "{icon} {volume}%",
+		"on-click":"pavucontrol",
+		"format-icons": {
+			"default": ["", "", ""]
+		}
+	},
+
+    "hyprland/workspaces": {
+		"num-tags": 6
+    },
+	"network": {
+		"tooltip": true,
+		"tooltip-format": "{essid}\n{ifname}\n{ipaddr}/{cidr}",
+		"format-wifi": "  {signalStrength}%",
+		"format-ethernet": "",
+		"on-click": "nm-connection-editor"
+	},
+	"bluetooth": {
+	    "format": "",
+	    "format-disabled": "!",
+	    "on-click": "foot bluetoothctl",
+	    "tooltip-format": "{device_alias} ({device_battery_percentage}%)",
+	    "on-click": "blueman-manager"
+ 	},
+
+	"backlight": {
+		"tooltip": false,
+		"format": " {}%",
+		"interval":1,
+        "on-scroll-up": "brightnessctl -q set +1%",
+		"on-scroll-down": "brightnessctl -q set 1%-"
+	},
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 60,
+            "critical": 40
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time}  {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+	"tray":{
+		"icon-size":18,
+		"spacing": 10
+	},
+    "clock": {
+    	"toolip": true,
+    	"tooltip-format": "{ordinal_date}",
+        "format": "{:%H:%M}",
+        "format-alt": "{:%I:%M %p  %d/%m/%Y}",
+        "on-click-right": "alacritty -e calcure"
+    },
+    "cpu": {
+        "interval": 15,
+        "format": " {}%",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 30,
+        "format": " {}%",
+        "max-length": 10
+    },
+    "custom/weather": {
+        "format": "{}°",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "wttrbar",
+        "return-type": "json"
+    },
+    "custom/media": {
+        "interval": 30,
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 20,
+        "format-icons": {
+            "spotify": " ",
+            "default": " "
+        },
+        "escape": true,
+        "exec": "$HOME/.config/system_scripts/mediaplayer.py 2> /dev/null",
+        "on-click": "playerctl play-pause"
+    },
+    "custom/launcher":{
+        "format": "",
+        "on-click": "wlogout"
+    }
+}
